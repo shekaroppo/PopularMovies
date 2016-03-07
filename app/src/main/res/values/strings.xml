@@ -4,11 +4,8 @@
     <string name="server_endpoint">https://api.themoviedb.org/3/</string>
     <string name="image_endpoint">http://image.tmdb.org/t/p/w185/</string>
     <string name="sort_order_popular">popular</string>
+    <string name="sort_order_top_rated">top_rated</string>
     <string name="no_network">No internet connection detected</string>
     <string name="data_error">Couldn\'t load data</string>
-     <string name="cheese_ipsum">Jarlsberg lancashire edam. Dolcelatte hard cheese brie st. agur blue
-    cheese caerphilly bavarian bergkase cheese and biscuits mascarpone. Cheeseburger swiss bavarian
-    bergkase cream cheese fromage frais cheesy feet port-salut airedale. St. agur blue cheese rubber
-    cheese caerphilly cheddar cheesecake cream cheese manchego lancashire. Roquefort squirty cheese
-    the big cheese.</string>
+
 </resources>

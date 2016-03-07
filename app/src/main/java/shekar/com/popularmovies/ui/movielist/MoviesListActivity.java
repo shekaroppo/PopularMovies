@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -48,6 +50,10 @@ public class MoviesListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setUI();
+        loadContent();
+    }
+
+    private void loadContent() {
         if (connectionUtils.isConnected()) {
             showProgress();
             getMovies();
@@ -55,6 +61,28 @@ public class MoviesListActivity extends AppCompatActivity {
             showErrorMsg(getString(R.string.no_network));
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.topRated:
+                mSortOrder = getResources().getString(R.string.sort_order_top_rated);
+                loadContent();
+                return true;
+            case R.id.popular:
+                mSortOrder = getResources().getString(R.string.sort_order_popular);
+                loadContent();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void setUI() {
         mSortOrder = getResources().getString(R.string.sort_order_popular);
