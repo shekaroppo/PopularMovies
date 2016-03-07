@@ -22,7 +22,7 @@ import shekar.com.popularmovies.ui.moviedetail.MovieDetailActivity;
 
 
 /**
- * Created by Sekhar on 4/6/15.
+ * Created by Sekhar on 03/07/16.
  */
 public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.GenresViewHolder> {
     private List<Results> mData = new ArrayList<>();
