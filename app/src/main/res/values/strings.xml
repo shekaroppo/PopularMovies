@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">PopularMovies</string>
+    <string name="api_key">a8534c68c7016cb0fd26d1fe8d724ae8</string>
+    <string name="server_endpoint">https://api.themoviedb.org/3/</string>
+    <string name="image_endpoint">http://image.tmdb.org/t/p/w185/</string>
+    <string name="sort_order_popular">popular</string>
+    <string name="no_network">No internet connection detected</string>
+    <string name="data_error">Couldn\'t load data</string>
 </resources>
