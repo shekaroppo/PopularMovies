@@ -21,16 +21,18 @@ import shekar.com.popularmovies.R;
 import shekar.com.popularmovies.model.ResultsPage;
 import shekar.com.popularmovies.services.ApiService;
 import shekar.com.popularmovies.utils.NetworkConnectionUtils;
-import shekar.com.popularmovies.utils.RecyclerViewItemClickListener;
 
-public class MoviesListActivity extends AppCompatActivity  implements RecyclerViewItemClickListener {
+public class MoviesListActivity extends AppCompatActivity {
 
-    @Bind(R.id.all_genre_recyclerView)
+    @Bind(R.id.movie_list_recyclerView)
     RecyclerView mRecyclerView;
+
     @Bind(R.id.loadingView)
     ProgressBar mProgressBar;
+
     @Bind(R.id.errorView)
     TextView mErrorText;
+
     MoviesListAdapter mAdapter;
 
     @Inject
@@ -53,16 +55,17 @@ public class MoviesListActivity extends AppCompatActivity  implements RecyclerVi
             showErrorMsg(getString(R.string.no_network));
         }
     }
+
     private void setUI() {
-        mSortOrder=getResources().getString(R.string.sort_order_popular);
-        mAdapter=new MoviesListAdapter(this);
+        mSortOrder = getResources().getString(R.string.sort_order_popular);
+        mAdapter = new MoviesListAdapter();
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this,2,GridLayoutManager.VERTICAL,false));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mAdapter);
     }
 
     private void getMovies() {
-        Call<ResultsPage> call=mApiService.getMovies(mSortOrder, getResources().getString(R.string.api_key));
+        Call<ResultsPage> call = mApiService.getMovies(mSortOrder, getResources().getString(R.string.api_key));
         call.enqueue(new Callback<ResultsPage>() {
             @Override
             public void onResponse(Response<ResultsPage> response, Retrofit retrofit) {
@@ -77,10 +80,6 @@ public class MoviesListActivity extends AppCompatActivity  implements RecyclerVi
         });
     }
 
-    @Override
-    public void onItemClick(View view, int position) {
-
-    }
     private void showErrorMsg(String errorMsg) {
         mProgressBar.setVisibility(View.GONE);
         mRecyclerView.setVisibility(View.GONE);
