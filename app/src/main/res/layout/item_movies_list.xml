@@ -1,60 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="wrap_content"
-             android:layout_height="180dp"
-             android:layout_margin="2.0dip"
-             android:elevation="3dp"
-             android:background="?attr/selectableItemBackground">
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:foreground="?android:attr/selectableItemBackground"
+             android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/content"
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent">
+    <LinearLayout android:id="@+id/content"
+                  xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical"
+                  android:padding="@dimen/spacing_nano">
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+        <shekar.com.popularmovies.utils.SquareImageView
+            android:id="@+id/album_art"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/black"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:id="@+id/album_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="vertical">
+            android:background="@android:color/black"
+            android:padding="@dimen/spacing_double"
+            android:textColor="@android:color/white"/>
 
-            <ImageView
-                android:id="@+id/album_art"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:scaleType="centerCrop"
-               />
-
-            <LinearLayout
-                android:id="@+id/footer"
-                android:layout_width="fill_parent"
-                android:layout_height="68.0dip"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:paddingLeft="16.0dip"
-                android:paddingRight="16.0dip">
-
-                <TextView
-                    android:id="@+id/album_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
-                    android:singleLine="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-
-                <TextView
-                    android:id="@+id/album_artist"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:singleLine="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
-            </LinearLayout>
-        </LinearLayout>
-    </FrameLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="?attr/selectableItemBackground"/>
+    </LinearLayout>
 
 </FrameLayout>

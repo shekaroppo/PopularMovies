@@ -6,4 +6,7 @@
     <dimen name="card_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="list_item_avatar_size">40dp</dimen>
+    <dimen name="size_avatar_toolbar">40dp</dimen>
+    <dimen name="spacing_double">16dp</dimen>
+    <dimen name="spacing_nano">2dp</dimen>
 </resources>

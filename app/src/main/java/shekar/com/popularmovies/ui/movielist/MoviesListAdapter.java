@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -14,17 +13,16 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import shekar.com.popularmovies.R;
 import shekar.com.popularmovies.model.Results;
 import shekar.com.popularmovies.ui.moviedetail.MovieDetailActivity;
+import shekar.com.popularmovies.utils.SquareImageView;
 
 
 /**
  * Created by Sekhar on 03/07/16.
  */
-public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.GenresViewHolder> {
+public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.MovieListViewHolder> {
     private List<Results> mData = new ArrayList<>();
 
     public void setData(List<Results> data) {
@@ -34,16 +32,15 @@ public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.Ge
     }
 
     @Override
-    public GenresViewHolder onCreateViewHolder(ViewGroup parent,
-                                               int viewType) {
+    public MovieListViewHolder onCreateViewHolder(ViewGroup parent,
+                                                  int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_movies_list, parent, false);
-        GenresViewHolder vh = new GenresViewHolder(v);
-        return vh;
+        return new MovieListViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(GenresViewHolder holder, int position) {
+    public void onBindViewHolder(MovieListViewHolder holder, int position) {
         final Results selectedMovie = getItem(position);
         holder.movieTitle.setText(selectedMovie.getTitle());
         Picasso.with(holder.movieArt.getContext()).load(holder.movieArt.getContext().getResources().getString(R.string.image_endpoint) +
@@ -77,21 +74,24 @@ public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.Ge
     }
 
     public Results getItem(int position) {
-        return (Results) mData.get(position);
+        return mData.get(position);
     }
 
-    public static class GenresViewHolder extends RecyclerView.ViewHolder {
+    public static class MovieListViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.album_title)
+        //@Bind(R.id.album_title)
         public TextView movieTitle;
-        @Bind(R.id.album_art)
-        public ImageView movieArt;
-        public final View mView;
+        //@Bind(R.id.album_art)
+        public SquareImageView movieArt;
+        //@Bind(R.id.content)
+        public View mView;
 
-        public GenresViewHolder(final View view) {
+        public MovieListViewHolder(final View view) {
             super(view);
-            ButterKnife.bind(this, view);
-            mView = view;
+           // ButterKnife.bind(this, view);
+            movieTitle=(TextView)view.findViewById(R.id.album_title);
+            movieArt=(SquareImageView)view.findViewById(R.id.album_art);
+            mView=view;
         }
     }
 }

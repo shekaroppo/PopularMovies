@@ -2,7 +2,6 @@ package shekar.com.popularmovies.ui.movielist;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +22,7 @@ import shekar.com.popularmovies.R;
 import shekar.com.popularmovies.model.ResultsPage;
 import shekar.com.popularmovies.services.ApiService;
 import shekar.com.popularmovies.utils.NetworkConnectionUtils;
+import shekar.com.popularmovies.utils.OffsetDecoration;
 
 public class MoviesListActivity extends AppCompatActivity {
 
@@ -87,9 +87,10 @@ public class MoviesListActivity extends AppCompatActivity {
     private void setUI() {
         mSortOrder = getResources().getString(R.string.sort_order_popular);
         mAdapter = new MoviesListAdapter();
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
-        mRecyclerView.setAdapter(mAdapter);
+        final int spacing = getResources()
+                .getDimensionPixelSize(R.dimen.spacing_nano);
+        mRecyclerView.addItemDecoration(new OffsetDecoration(spacing));
+         mRecyclerView.setAdapter(mAdapter);
     }
 
     private void getMovies() {
@@ -98,7 +99,12 @@ public class MoviesListActivity extends AppCompatActivity {
             @Override
             public void onResponse(Response<ResultsPage> response, Retrofit retrofit) {
                 hideProgress();
-                mAdapter.setData(response.body().getResults());
+                if(response!=null&&response.body()!=null&&response.isSuccess()) {
+                    mAdapter.setData(response.body().getResults());
+                }
+                else{
+                    showErrorMsg(getResources().getString(R.string.data_error));
+                }
             }
 
             @Override
