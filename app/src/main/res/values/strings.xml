@@ -6,6 +6,14 @@
     <string name="sort_order_popular">popular</string>
     <string name="sort_order_top_rated">top_rated</string>
     <string name="no_network">No internet connection detected</string>
+    <string name="no_fav">No Favorite Movies Found</string>
     <string name="data_error">Couldn\'t load data</string>
-
+    <string name="Trailers">Trailers</string>
+    <string name="no_trailers">No trailers</string>
+    <string name="reviews">Reviews</string>
+    <string name="no_reviews">No reviews</string>
+    <string name="added_to_favorite">Added to favorite</string>
+    <string name="removed_from_favorite">Removed from favorite</string>
+    <string name="show_favorites">Show Favorites</string>
+    <string name="movie_detail_add_favorite">Add to favorite</string>
 </resources>

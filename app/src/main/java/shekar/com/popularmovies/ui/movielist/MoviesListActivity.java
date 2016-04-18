@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import butterknife.Bind;
@@ -19,8 +21,10 @@ import retrofit.Response;
 import retrofit.Retrofit;
 import shekar.com.popularmovies.BaseApplication;
 import shekar.com.popularmovies.R;
-import shekar.com.popularmovies.model.ResultsPage;
+import shekar.com.popularmovies.model.MovieData;
+import shekar.com.popularmovies.model.MovieResults;
 import shekar.com.popularmovies.services.ApiService;
+import shekar.com.popularmovies.utils.FavoriteMovieContentProvider;
 import shekar.com.popularmovies.utils.NetworkConnectionUtils;
 import shekar.com.popularmovies.utils.OffsetDecoration;
 
@@ -71,6 +75,9 @@ public class MoviesListActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.show_favorites:
+                loadFavorites();
+                return true;
             case R.id.topRated:
                 mSortOrder = getResources().getString(R.string.sort_order_top_rated);
                 loadContent();
@@ -81,6 +88,15 @@ public class MoviesListActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void loadFavorites() {
+        List<MovieData> favList = FavoriteMovieContentProvider.getFavorites(this);
+        if (favList.size()>0) {
+            mAdapter.setData(favList);
+        } else {
+            showErrorMsg(getString(R.string.no_fav));
+        }
     }
 
 
@@ -94,10 +110,10 @@ public class MoviesListActivity extends AppCompatActivity {
     }
 
     private void getMovies() {
-        Call<ResultsPage> call = mApiService.getMovies(mSortOrder, getResources().getString(R.string.api_key));
-        call.enqueue(new Callback<ResultsPage>() {
+        Call<MovieResults> call = mApiService.getMovies(mSortOrder, getResources().getString(R.string.api_key));
+        call.enqueue(new Callback<MovieResults>() {
             @Override
-            public void onResponse(Response<ResultsPage> response, Retrofit retrofit) {
+            public void onResponse(Response<MovieResults> response, Retrofit retrofit) {
                 hideProgress();
                 if(response!=null&&response.body()!=null&&response.isSuccess()) {
                     mAdapter.setData(response.body().getResults());

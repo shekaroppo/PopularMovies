@@ -8,6 +8,7 @@ import shekar.com.popularmovies.BaseApplication;
 import shekar.com.popularmovies.injection.module.AppModule;
 import shekar.com.popularmovies.injection.module.DataModule;
 import shekar.com.popularmovies.services.ApiService;
+import shekar.com.popularmovies.ui.moviedetail.MovieDetailActivity;
 import shekar.com.popularmovies.ui.movielist.MoviesListActivity;
 import shekar.com.popularmovies.utils.NetworkConnectionUtils;
 
@@ -24,6 +25,7 @@ public interface AppComponent {
     void inject(BaseApplication baseApplication);
 
     void inject(MoviesListActivity moviesListActivity);
+    void inject(MovieDetailActivity movieDetailActivity);
 
     ApiService getApiService();
 

@@ -14,8 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import shekar.com.popularmovies.R;
-import shekar.com.popularmovies.model.Results;
+import shekar.com.popularmovies.model.MovieData;
 import shekar.com.popularmovies.ui.moviedetail.MovieDetailActivity;
+import shekar.com.popularmovies.utils.Constants;
 import shekar.com.popularmovies.utils.SquareImageView;
 
 
@@ -23,9 +24,9 @@ import shekar.com.popularmovies.utils.SquareImageView;
  * Created by Sekhar on 03/07/16.
  */
 public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.MovieListViewHolder> {
-    private List<Results> mData = new ArrayList<>();
+    private List<MovieData> mData = new ArrayList<>();
 
-    public void setData(List<Results> data) {
+    public void setData(List<MovieData> data) {
         this.mData.clear();
         this.mData = data;
         notifyDataSetChanged();
@@ -41,28 +42,25 @@ public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.Mo
 
     @Override
     public void onBindViewHolder(MovieListViewHolder holder, int position) {
-        final Results selectedMovie = getItem(position);
-        holder.movieTitle.setText(selectedMovie.getTitle());
+        final MovieData selectedMovie = getItem(position);
+        holder.movieTitle.setText(selectedMovie.originalTitle);
         Picasso.with(holder.movieArt.getContext()).load(holder.movieArt.getContext().getResources().getString(R.string.image_endpoint) +
-                selectedMovie.getPoster_path()).into(holder.movieArt);
+                selectedMovie.posterPath).into(holder.movieArt);
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
 
-                String title = selectedMovie.getTitle();
+                String title = selectedMovie.originalTitle;
 
-                String detail_text = "Release Date: " + selectedMovie.getRelease_date() + "\n" +
-                        "Vote Average: " + selectedMovie.getVote_average() + "\n" +
-                        "Plot Synopsis: " + selectedMovie.getOverview();
+                String detail_text = "Release Date: " + selectedMovie.releaseDate + "\n" +
+                        "Vote Average: " + selectedMovie.voteAverage + "\n" +
+                        "Plot Synopsis: " + selectedMovie.overview;
 
-                String posterPath = "http://image.tmdb.org/t/p/w500" + selectedMovie.getPoster_path();
+                String posterPath = "http://image.tmdb.org/t/p/w500" + selectedMovie.posterPath;
 
-                Intent intent = new Intent(context, MovieDetailActivity.class)
-                        .putExtra(MovieDetailActivity.EXTRA_TITLE, title)
-                        .putExtra(MovieDetailActivity.EXTRA_INFO, detail_text)
-                        .putExtra(MovieDetailActivity.EXTRA_URL, posterPath);
-
+                Intent intent = new Intent(context, MovieDetailActivity.class);
+                intent.putExtra(Constants.MOVIE_DETAIL_KEY, selectedMovie);
                 context.startActivity(intent);
             }
         });
@@ -73,7 +71,7 @@ public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.Mo
         return mData.size();
     }
 
-    public Results getItem(int position) {
+    public MovieData getItem(int position) {
         return mData.get(position);
     }
 

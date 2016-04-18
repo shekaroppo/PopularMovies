@@ -2,9 +2,9 @@ package shekar.com.popularmovies.model;
 
 import java.util.List;
 
-public class ResultsPage
+public class MovieResults
 {
-    private List<Results> results;
+    private List<MovieData> results;
 
     private String page;
 
@@ -12,12 +12,12 @@ public class ResultsPage
 
     private String total_results;
 
-    public List<Results> getResults ()
+    public List<MovieData> getResults ()
     {
         return results;
     }
 
-    public void setResults (List<Results> results)
+    public void setResults (List<MovieData> results)
     {
         this.results = results;
     }
