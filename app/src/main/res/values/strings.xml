@@ -16,4 +16,5 @@
     <string name="removed_from_favorite">Removed from favorite</string>
     <string name="show_favorites">Show Favorites</string>
     <string name="movie_detail_add_favorite">Add to favorite</string>
+    <string name="poster_base_url">http://image.tmdb.org/t/p/w500</string>
 </resources>

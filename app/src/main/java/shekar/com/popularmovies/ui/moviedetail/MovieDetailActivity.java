@@ -88,7 +88,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         (((BaseApplication) getApplication()).getComponent()).inject(this);
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
-        Intent intent = getIntent();
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -101,7 +100,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         mAddedInFavorite = FavoriteMovieContentProvider.getMovieData(this, mMovieData.id) != null;
         collapsingToolbar.setTitle(mMovieData.originalTitle);
         mMovieInfo.setText(mMovieData.overview);
-        Picasso.with(this).load(mMovieData.posterPath).into(mbackdropImage);
+        String posterPath = getString(R.string.poster_base_url) + mMovieData.backdropPath;
+        Picasso.with(this).load(posterPath).into(mbackdropImage);
         if (savedInstanceState != null) {
             mTrailers = savedInstanceState.getParcelableArrayList(Constants.TRAILERS);
             mReviews = savedInstanceState.getParcelableArrayList(Constants.REVIEWS);
@@ -111,6 +111,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         } else {
             executeTasks(movieId);
         }
+        switchFabIcon();
     }
 
     private void executeTasks(String id) {
